@@ -1,0 +1,66 @@
+{
+  "name": "json-duplicates-remover",
+  "displayName": "JSON Duplicates Remover",
+  "description": "This script will remove any duplicated object or line from your JSON file.",
+  "version": "1.0.0",
+  "publisher": "Anoerak",
+  "engines": {
+    "vscode": "^1.92.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:extension.runJsonDeduplication"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "extension.runJsonDeduplication",
+        "title": "Run JSON Deduplication Script"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "extension.runJsonDeduplication",
+          "when": "resourceLangId == json",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+        "properties": {
+            "jsonDeduplication.pythonPath": {
+                "type": "string",
+                "default": "python3",
+                "description": "Path to the Python interpreter."
+            }
+        }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.7",
+    "@types/vscode": "^1.92.0",
+    "copy-webpack-plugin": "^11.0.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.4.5",
+    "webpack": "^5.92.1",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "python-shell": "^5.0.0"
+  }
+}
